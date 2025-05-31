@@ -18,11 +18,11 @@ def get_transcript():
         transcript = YouTubeTranscriptApi.get_transcript(video_id, languages=languages)
         return jsonify(transcript)
 
-    except TranscriptsDisabled:
-        return jsonify({"error": "Transcripts are disabled for this video", "cause" : TranscriptsDisabled.CAUSE_MESSAGE_INTRO}), 403
+    except TranscriptsDisabled as e:
+        return jsonify({"error": "Transcripts are disabled for this video", "cause" : e}), 403
 
-    except CouldNotRetrieveTranscript:
-        return jsonify({"error": "Could not retrieve transcript for this video", "cause" : CouldNotRetrieveTranscript.CAUSE_MESSAGE_INTRO}), 404
+    except CouldNotRetrieveTranscript as e:
+        return jsonify({"error": "Could not retrieve transcript for this video", "cause" : e}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
