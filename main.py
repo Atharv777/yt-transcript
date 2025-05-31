@@ -19,10 +19,10 @@ def get_transcript():
         return jsonify(transcript)
 
     except TranscriptsDisabled:
-        return jsonify({"error": "Transcripts are disabled for this video"}), 403
+        return jsonify({"error": "Transcripts are disabled for this video", "cause" : TranscriptsDisabled.CAUSE_MESSAGE_INTRO}), 403
 
     except CouldNotRetrieveTranscript:
-        return jsonify({"error": "Could not retrieve transcript for this video"}), 404
+        return jsonify({"error": "Could not retrieve transcript for this video", "cause" : CouldNotRetrieveTranscript.CAUSE_MESSAGE_INTRO}), 404
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
